@@ -3,7 +3,8 @@ Leaflet demo for esp-idf.
 Leaflet is the leading open-source JavaScript library for mobile-friendly interactive maps.   
 Leaflet's homepage is [here](https://leafletjs.com/).   
 This project demonstrates how to use Leaflet maps with ESP-IDF.   
-![Image](https://github.com/user-attachments/assets/05fde83c-0934-4cdd-b3f4-540e88f93b89)
+![Image](https://github.com/user-attachments/assets/05fde83c-0934-4cdd-b3f4-540e88f93b89)   
+![Image](https://github.com/user-attachments/assets/9765ed50-1162-4b8f-9644-b7ecbb3cb545)   
 
 # Software requirements
 ESP-IDF V5.0 or later.   
