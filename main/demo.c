@@ -55,7 +55,7 @@ void demo_task(void* pvParameters)
 			cJSON_AddNumberToObject(request, "latitude_degrees", latitude.degrees);
 			cJSON_AddNumberToObject(request, "latitude_minutes", latitude.minutes);
 			cJSON_AddNumberToObject(request, "zoom_level", 0);
-			cJSON_AddNumberToObject(request, "options", 0);
+			cJSON_AddNumberToObject(request, "options", 2); // Disable zoom function
 			char *nmea_string = cJSON_Print(request);
 			ESP_LOGD(TAG, "nmea_string\n%s",nmea_string);
 			size_t xBytesSent = xMessageBufferSendFromISR(xMessageBufferToClient, nmea_string, strlen(nmea_string), NULL);
@@ -64,19 +64,6 @@ void demo_task(void* pvParameters)
 			}
 			cJSON_Delete(request);
 			cJSON_free(nmea_string);
-
-			// Send zoomcontrol disable to web client
-			request = cJSON_CreateObject();
-			cJSON_AddStringToObject(request, "id", "zoomcontrol-request");
-			cJSON_AddNumberToObject(request, "zoom_control", 0);
-			char *zoom_control_disable_string = cJSON_Print(request);
-			ESP_LOGD(TAG, "zoom_control_disable_string\n%s",zoom_control_disable_string);
-			xBytesSent = xMessageBufferSendFromISR(xMessageBufferToClient, zoom_control_disable_string, strlen(zoom_control_disable_string), NULL);
-			if (xBytesSent != strlen(zoom_control_disable_string)) {
-				ESP_LOGE(TAG, "xMessageBufferSend fail");
-			}
-			cJSON_Delete(request);
-			cJSON_free(zoom_control_disable_string);
 
 			// Send zoomlevel to web client
 			for(int zoom_level=0;zoom_level<17;zoom_level++) {
@@ -98,14 +85,14 @@ void demo_task(void* pvParameters)
 			request = cJSON_CreateObject();
 			cJSON_AddStringToObject(request, "id", "zoomcontrol-request");
 			cJSON_AddNumberToObject(request, "zoom_control", 1);
-			char *zoom_control_enable_string = cJSON_Print(request);
-			ESP_LOGD(TAG, "zoom_control_enable_string\n%s",zoom_control_enable_string);
-			xBytesSent = xMessageBufferSendFromISR(xMessageBufferToClient, zoom_control_enable_string, strlen(zoom_control_enable_string), NULL);
-			if (xBytesSent != strlen(zoom_control_enable_string)) {
+			char *zoom_control_string = cJSON_Print(request);
+			ESP_LOGD(TAG, "zoom_control_string\n%s",zoom_control_string);
+			xBytesSent = xMessageBufferSendFromISR(xMessageBufferToClient, zoom_control_string, strlen(zoom_control_string), NULL);
+			if (xBytesSent != strlen(zoom_control_string)) {
 				ESP_LOGE(TAG, "xMessageBufferSend fail");
 			}
 			cJSON_Delete(request);
-			cJSON_free(zoom_control_enable_string);
+			cJSON_free(zoom_control_string);
 
 			// Send fullscreen to web client
 			request = cJSON_CreateObject();
