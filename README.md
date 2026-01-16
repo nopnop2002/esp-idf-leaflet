@@ -75,6 +75,6 @@ You can switch to full screen view.
 In GPS Mode, it displays a map of your current location obtained from GPS.   
 You can use the zoom function.   
 
-In Travel Mode, travel through Central Park from south to north.   
+In Move Mode, move through Central Park from south to north.   
 In this mode, the zoom function is disabled.   
 ![Image](https://github.com/user-attachments/assets/028d2dc8-6de5-46f3-b1b1-f6f5b3f8d910)   
