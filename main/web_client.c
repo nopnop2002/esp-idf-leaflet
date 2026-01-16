@@ -68,7 +68,7 @@ void client_task(void* pvParameters) {
 
 	char jsonBuffer[512];
 	char DEL = 0x04;
-	char outBuffer[64];
+	char outBuffer[128];
 
 	while (1) {
 		size_t readBytes = xMessageBufferReceive(xMessageBufferToClient, jsonBuffer, sizeof(jsonBuffer), portMAX_DELAY );
@@ -129,6 +129,16 @@ void client_task(void* pvParameters) {
 				bits = bits | SOCKET_SEND_BIT;
 				ESP_LOGI(TAG, "bits=0x%x", bits);
 				xEventGroupSetBits(xEventWebSocket, bits);
+			} // end if
+
+			if ( strcmp (id, "message-request") == 0) {
+				char *position = cJSON_GetObjectItem(root,"position")->valuestring;
+				int timeout = cJSON_GetObjectItem(root,"timeout")->valueint;
+				char *message = cJSON_GetObjectItem(root,"message")->valuestring;
+				ESP_LOGI(TAG, "position=[%s] timeout=%d message=[%s]", position, timeout, message);
+				sprintf(outBuffer,"MESSAGEBOX%c%s%c%d%c%s", DEL, position, DEL, timeout, DEL, message);
+				ESP_LOGI(TAG, "outBuffer=[%s]", outBuffer);
+				ws_server_send_text_all(outBuffer,strlen(outBuffer));
 			} // end if
 
 		} // end if

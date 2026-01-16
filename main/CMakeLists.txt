@@ -14,4 +14,6 @@ idf_component_register(SRCS "${srcs}"
                 "../html/favicon.ico"
                 "../html/main.js"
                 "../html/root.html"
-                "../html/main.css")
+                "../html/main.css"
+                "../html/leaflet_messagebox.js"
+                "../html/leaflet_messagebox.css")

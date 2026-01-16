@@ -87,10 +87,20 @@ static void http_server(struct netconn *conn) {
 	extern const uint8_t main_js_end[] asm("_binary_main_js_end");
 	const uint32_t main_js_len = main_js_end - main_js_start;
 
+	// leaflet_messagebox.js
+	extern const uint8_t leaflet_messagebox_js_start[] asm("_binary_leaflet_messagebox_js_start");
+	extern const uint8_t leaflet_messagebox_js_end[] asm("_binary_leaflet_messagebox_js_end");
+	const uint32_t leaflet_messagebox_js_len = leaflet_messagebox_js_end - leaflet_messagebox_js_start;
+
 	// main.css
 	extern const uint8_t main_css_start[] asm("_binary_main_css_start");
 	extern const uint8_t main_css_end[] asm("_binary_main_css_end");
 	const uint32_t main_css_len = main_css_end - main_css_start;
+
+	// leaflet_messagebox.css
+	extern const uint8_t leaflet_messagebox_css_start[] asm("_binary_leaflet_messagebox_css_start");
+	extern const uint8_t leaflet_messagebox_css_end[] asm("_binary_leaflet_messagebox_css_end");
+	const uint32_t leaflet_messagebox_css_len = leaflet_messagebox_css_end - leaflet_messagebox_css_start;
 
 	// favicon.ico
 	extern const uint8_t favicon_ico_start[] asm("_binary_favicon_ico_start");
@@ -139,10 +149,28 @@ static void http_server(struct netconn *conn) {
 				netbuf_delete(inbuf);
 			}
 
+			else if(strstr(buf,"GET /leaflet_messagebox.js ")) {
+				ESP_LOGI(TAG,"Sending /leaflet_messagebox.js");
+				netconn_write(conn, JS_HEADER, sizeof(JS_HEADER)-1, NETCONN_NOCOPY);
+				netconn_write(conn, leaflet_messagebox_js_start, leaflet_messagebox_js_len, NETCONN_NOCOPY);
+				netconn_close(conn);
+				netconn_delete(conn);
+				netbuf_delete(inbuf);
+			}
+
 			else if(strstr(buf,"GET /main.css ")) {
 				ESP_LOGI(TAG,"Sending /main.css");
 				netconn_write(conn, CSS_HEADER, sizeof(CSS_HEADER)-1, NETCONN_NOCOPY);
 				netconn_write(conn, main_css_start, main_css_len, NETCONN_NOCOPY);
+				netconn_close(conn);
+				netconn_delete(conn);
+				netbuf_delete(inbuf);
+			}
+
+			else if(strstr(buf,"GET /leaflet_messagebox.css ")) {
+				ESP_LOGI(TAG,"Sending /leaflet_messagebox.css");
+				netconn_write(conn, CSS_HEADER, sizeof(CSS_HEADER)-1, NETCONN_NOCOPY);
+				netconn_write(conn, leaflet_messagebox_css_start, leaflet_messagebox_css_len, NETCONN_NOCOPY);
 				netconn_close(conn);
 				netconn_delete(conn);
 				netbuf_delete(inbuf);

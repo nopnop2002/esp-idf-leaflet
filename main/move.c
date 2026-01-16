@@ -106,7 +106,7 @@ void move_task(void* pvParameters)
 			}
 		}
 
-		// send current location to web client
+		// Send current location to web client
 		cJSON *request;
 		request = cJSON_CreateObject();
 		cJSON_AddStringToObject(request, "id", "nmea-request");
@@ -115,16 +115,16 @@ void move_task(void* pvParameters)
 		cJSON_AddNumberToObject(request, "latitude_degrees", currentLatitude.degrees);
 		cJSON_AddNumberToObject(request, "latitude_minutes", currentLatitude.minutes);
 		cJSON_AddNumberToObject(request, "options", 0x02); // Disable zoom function
-		char *my_json_string = cJSON_Print(request);
-		ESP_LOGD(TAG, "my_json_string\n%s",my_json_string);
-		size_t xBytesSent = xMessageBufferSendFromISR(xMessageBufferToClient, my_json_string, strlen(my_json_string), NULL);
-		if (xBytesSent != strlen(my_json_string)) {
+		char *nmea_string = cJSON_Print(request);
+		ESP_LOGD(TAG, "nmea_string\n%s",nmea_string);
+		size_t xBytesSent = xMessageBufferSendFromISR(xMessageBufferToClient, nmea_string, strlen(nmea_string), NULL);
+		if (xBytesSent != strlen(nmea_string)) {
 			ESP_LOGE(TAG, "xMessageBufferSend fail");
 		}
 		cJSON_Delete(request);
-		cJSON_free(my_json_string);
+		cJSON_free(nmea_string);
 
-		// calculate next localtion
+		// Calculate next localtion
 		currentLat = currentLat + deltaLat;
 		currentLong = currentLong + deltaLong;
 		ESP_LOGI(TAG, "currentLong=%f currentlat=%f", currentLong, currentLat);

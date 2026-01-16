@@ -46,7 +46,7 @@ void demo_task(void* pvParameters)
 		EventBits_t bits = xEventGroupGetBits(xEventWebSocket);
 		ESP_LOGI(TAG, "bits=0x%x", bits);
 		if (bits == 0x01) {
-			// send current location to web client
+			// Send current location to web client
 			cJSON *request;
 			request = cJSON_CreateObject();
 			cJSON_AddStringToObject(request, "id", "nmea-request");
@@ -55,14 +55,29 @@ void demo_task(void* pvParameters)
 			cJSON_AddNumberToObject(request, "latitude_degrees", latitude.degrees);
 			cJSON_AddNumberToObject(request, "latitude_minutes", latitude.minutes);
 			cJSON_AddNumberToObject(request, "options", 1); // Use Fullscreen Control
-			char *my_json_string = cJSON_Print(request);
-			ESP_LOGD(TAG, "my_json_string\n%s",my_json_string);
-			size_t xBytesSent = xMessageBufferSendFromISR(xMessageBufferToClient, my_json_string, strlen(my_json_string), NULL);
-			if (xBytesSent != strlen(my_json_string)) {
+			char *nmea_string = cJSON_Print(request);
+			ESP_LOGD(TAG, "nmea_string\n%s",nmea_string);
+			size_t xBytesSent = xMessageBufferSendFromISR(xMessageBufferToClient, nmea_string, strlen(nmea_string), NULL);
+			if (xBytesSent != strlen(nmea_string)) {
 				ESP_LOGE(TAG, "xMessageBufferSend fail");
 			}
 			cJSON_Delete(request);
-			cJSON_free(my_json_string);
+			cJSON_free(nmea_string);
+
+			// Send message to web client
+			request = cJSON_CreateObject();
+			cJSON_AddStringToObject(request, "id", "message-request");
+			cJSON_AddStringToObject(request, "position", "bottomright");
+			cJSON_AddNumberToObject(request, "timeout", 5000);
+			cJSON_AddStringToObject(request, "message", "<p><a href=\"https://github.com/nopnop2002/esp-idf-leaflet\">GitHub esp-idf-leaflet</a></p>");
+			char *message_string = cJSON_Print(request);
+			ESP_LOGD(TAG, "message_string\n%s",message_string);
+			xBytesSent = xMessageBufferSendFromISR(xMessageBufferToClient, message_string, strlen(message_string), NULL);
+			if (xBytesSent != strlen(message_string)) {
+				ESP_LOGE(TAG, "xMessageBufferSend fail");
+			}
+			cJSON_Delete(request);
+			cJSON_free(message_string);
 		}
 		vTaskDelay(100);
 	}
