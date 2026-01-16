@@ -1,7 +1,8 @@
 //document.getElementById("datetime").innerHTML = "WebSocket is not connected";
 
 const websocket = new WebSocket('ws://'+location.hostname+'/');
-const map = L.map('map');
+//const map = L.map('map');
+const map = L.map('map', {messagebox: true});
 
 function sendText(name) {
 	console.log('sendText');
@@ -77,6 +78,20 @@ websocket.onmessage = function(evt) {
 				map.touchZoom.disable();
 				map.boxZoom.disable();
 			}
+
+			break;
+
+		case 'MESSAGEBOX':
+			console.log("MESSAGEBOX values[1]=" + values[1]); // position
+			console.log("MESSAGEBOX values[2]=" + values[2]); // timeout
+			console.log("MESSAGEBOX values[3]=" + values[3]); // message
+			//var message = '<p>messagebox</p>';
+			//message += '<p><a href="https://github.com/tinuzz/leaflet-messagebox">GitHub Leaflet.Messagebox</a></p>';
+			var message = values[3];
+
+			map.messagebox.setPosition(values[1]);	// 'topleft', 'topright', 'bottomleft', 'bottomright'
+			map.messagebox.options.timeout = parseInt(values[2],10); // default timeout 3000 millisecond
+			map.messagebox.show(message);
 
 			break;
 
