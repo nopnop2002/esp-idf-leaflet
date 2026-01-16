@@ -65,6 +65,7 @@ You can use the zoom function.
 
 You can switch to full screen view.   
 ![Image](https://github.com/user-attachments/assets/d932c06e-ae92-493a-9f76-fb7160385ee3)   
+
 In GPS Mode, it displays a map of your current location obtained from GPS.   
 You can use the zoom function.   
 
