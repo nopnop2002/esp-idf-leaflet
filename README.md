@@ -53,7 +53,7 @@ This project has three modes of operation.
 	![Image](https://github.com/user-attachments/assets/1c8469f1-931f-4e8b-8efa-46615cc7309c)
 
 - Move Mode   
-	Works without GPS.
+	Works without GPS.   
 	Moving from south to north through Central Park.
 	![Image](https://github.com/user-attachments/assets/53544a9c-b3ef-40c3-bf3c-dbe65c3b1ac0)
 
