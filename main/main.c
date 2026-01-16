@@ -181,9 +181,9 @@ void app_main() {
 	xMessageBufferToClient = xMessageBufferCreate(1024);
 	configASSERT( xMessageBufferToClient );
 
-    // Create EventGroup
-    xEventWebSocket = xEventGroupCreate();
-    configASSERT( xEventWebSocket );
+	// Create EventGroup
+	xEventWebSocket = xEventGroupCreate();
+	configASSERT( xEventWebSocket );
 	EventBits_t bits = xEventGroupGetBits(xEventWebSocket);
 	ESP_LOGI(pcTaskGetName(NULL), "bits=%d", bits);
 
@@ -212,4 +212,9 @@ void app_main() {
 	// Start move task
 	xTaskCreate(&move_task, "MOVE", 1024*3, NULL, 5, NULL);
 #endif
+
+	// An eternal loop to prevent stack variables from being released
+	while(1) {
+		vTaskDelay(100);
+	}
 }
