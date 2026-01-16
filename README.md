@@ -1,7 +1,7 @@
 # esp-idf-leaflet
 Leaflet demo for esp-idf.   
 Leaflet is the leading open-source JavaScript library for mobile-friendly interactive maps.   
-Leaflet's homepage is [here](https://leafletjs.com/).
+Leaflet's homepage is [here](https://leafletjs.com/).   
 This project demonstrates how to use Leaflet maps with ESP-IDF.   
 
 # Software requirements
@@ -46,13 +46,13 @@ This project has three modes of operation.
 	Displays a map of your current location obtained from GPS.   
 	![Image](https://github.com/user-attachments/assets/1c8469f1-931f-4e8b-8efa-46615cc7309c)
 
-- Travel Mode
+- Travel Mode   
 	Works without GPS.
 	Travel from south to north through Central Park.
 	![Image](https://github.com/user-attachments/assets/53544a9c-b3ef-40c3-bf3c-dbe65c3b1ac0)
 
 # How to use
-Open a web browser and enter the ESP32's IP address in the address bar.
+Open a web browser and enter the ESP32's IP address in the address bar.   
 In Demonstration Mode, it displays a map of the Statue of Liberty.   
 ![Image](https://github.com/user-attachments/assets/f5284f8d-c7f8-4ea8-af84-170734748e8d)   
 
