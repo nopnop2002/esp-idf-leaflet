@@ -205,6 +205,7 @@ static void read_and_parse_nmea()
 				cJSON_AddNumberToObject(request, "longitude_minutes", pos->longitude.minutes);
 				cJSON_AddNumberToObject(request, "latitude_degrees", pos->latitude.degrees);
 				cJSON_AddNumberToObject(request, "latitude_minutes", pos->latitude.minutes);
+				cJSON_AddNumberToObject(request, "zoom_level", 15);
 				cJSON_AddNumberToObject(request, "options", 1); // Use Fullscreen Control
 				char *nmea_string = cJSON_Print(request);
 				ESP_LOGD(TAG, "nmea_string\n%s",nmea_string);

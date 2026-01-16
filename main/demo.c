@@ -54,6 +54,7 @@ void demo_task(void* pvParameters)
 			cJSON_AddNumberToObject(request, "longitude_minutes", longitude.minutes);
 			cJSON_AddNumberToObject(request, "latitude_degrees", latitude.degrees);
 			cJSON_AddNumberToObject(request, "latitude_minutes", latitude.minutes);
+			cJSON_AddNumberToObject(request, "zoom_level", 0);
 			cJSON_AddNumberToObject(request, "options", 1); // Use Fullscreen Control
 			char *nmea_string = cJSON_Print(request);
 			ESP_LOGD(TAG, "nmea_string\n%s",nmea_string);
@@ -63,6 +64,22 @@ void demo_task(void* pvParameters)
 			}
 			cJSON_Delete(request);
 			cJSON_free(nmea_string);
+
+			// Send zoomlevel to web client
+			for(int zoom_level=0;zoom_level<17;zoom_level++) {
+				request = cJSON_CreateObject();
+				cJSON_AddStringToObject(request, "id", "zoomlevel-request");
+				cJSON_AddNumberToObject(request, "zoom_level", zoom_level);
+				char *zoom_level_string = cJSON_Print(request);
+				ESP_LOGD(TAG, "zoom_level_string\n%s",zoom_level_string);
+				xBytesSent = xMessageBufferSendFromISR(xMessageBufferToClient, zoom_level_string, strlen(zoom_level_string), NULL);
+				if (xBytesSent != strlen(zoom_level_string)) {
+					ESP_LOGE(TAG, "xMessageBufferSend fail");
+				}
+				cJSON_Delete(request);
+				cJSON_free(zoom_level_string);
+				vTaskDelay(100);
+			}
 
 			// Send message to web client
 			request = cJSON_CreateObject();

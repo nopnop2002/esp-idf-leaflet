@@ -107,18 +107,20 @@ void client_task(void* pvParameters) {
 				ws_server_send_text_all(outBuffer,strlen(outBuffer));
 
 				ESP_LOGI(TAG, "esp_get_free_heap_size=%"PRIu32, esp_get_free_heap_size());
-			} // end if
+			} // timer-request
 
 			if ( strcmp (id, "nmea-request") == 0) {
 				int lonDegrees = cJSON_GetObjectItem(root,"longitude_degrees")->valueint;
 				double lonMinutes = cJSON_GetObjectItem(root,"longitude_minutes")->valuedouble;
 				int latDegrees= cJSON_GetObjectItem(root,"latitude_degrees")->valueint;
 				double latMinutes= cJSON_GetObjectItem(root,"latitude_minutes")->valuedouble;
-				int options = cJSON_GetObjectItem(root,"options")->valueint;
+				int zoomLevel = cJSON_GetObjectItem(root,"zoom_level")->valueint;
+				int zoomOptions = cJSON_GetObjectItem(root,"options")->valueint;
 				ESP_LOGI(TAG, "lonDegrees=%d lonMinutes=%f", lonDegrees, lonMinutes);
 				ESP_LOGI(TAG, "latDegrees%d latMinutes%f", latDegrees, latMinutes);
-				ESP_LOGI(TAG, "options=%d", options);
-				sprintf(outBuffer,"DATA%c%d%c%f%c%d%c%f%c%d", DEL, latDegrees, DEL, latMinutes, DEL, lonDegrees, DEL, lonMinutes, DEL, options);
+				ESP_LOGI(TAG, "zoomLevel=%d zoomOptions=0x%x", zoomLevel, zoomOptions);
+				sprintf(outBuffer,"DATA%c%d%c%f%c%d%c%f%c%d%c%d",
+					DEL, latDegrees, DEL, latMinutes, DEL, lonDegrees, DEL, lonMinutes, DEL, zoomLevel, DEL, zoomOptions);
 				ESP_LOGI(TAG, "outBuffer=[%s]", outBuffer);
 				ws_server_send_text_all(outBuffer,strlen(outBuffer));
 
@@ -129,7 +131,15 @@ void client_task(void* pvParameters) {
 				bits = bits | SOCKET_SEND_BIT;
 				ESP_LOGI(TAG, "bits=0x%x", bits);
 				xEventGroupSetBits(xEventWebSocket, bits);
-			} // end if
+			} // nmea-request
+
+			if ( strcmp (id, "zoomlevel-request") == 0) {
+				int zoomLevel = cJSON_GetObjectItem(root,"zoom_level")->valueint;
+				ESP_LOGI(TAG, "zoomLevel=%d", zoomLevel);
+				sprintf(outBuffer,"ZOOMLEVEL%c%d", DEL, zoomLevel);
+				ESP_LOGI(TAG, "outBuffer=[%s]", outBuffer);
+				ws_server_send_text_all(outBuffer,strlen(outBuffer));
+			} // zoomlevel-request
 
 			if ( strcmp (id, "message-request") == 0) {
 				char *position = cJSON_GetObjectItem(root,"position")->valuestring;
@@ -139,7 +149,7 @@ void client_task(void* pvParameters) {
 				sprintf(outBuffer,"MESSAGEBOX%c%s%c%d%c%s", DEL, position, DEL, timeout, DEL, message);
 				ESP_LOGI(TAG, "outBuffer=[%s]", outBuffer);
 				ws_server_send_text_all(outBuffer,strlen(outBuffer));
-			} // end if
+			} // message-request
 
 		} // end if
 
