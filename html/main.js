@@ -36,11 +36,12 @@ websocket.onmessage = function(evt) {
 			break;
 
 		case 'DATA':
-			console.log("DATA values[1]=" + values[1]);
-			console.log("DATA values[2]=" + values[2]);
-			console.log("DATA values[3]=" + values[3]);
-			console.log("DATA values[4]=" + values[4]);
-			console.log("DATA values[5]=" + values[5]);
+			console.log("DATA values[1]=" + values[1]); // latitude(degrees)
+			console.log("DATA values[2]=" + values[2]); // latitude(minutes)
+			console.log("DATA values[3]=" + values[3]); // longitude(degrees)
+			console.log("DATA values[4]=" + values[4]); // longitude(minutes)
+			console.log("DATA values[5]=" + values[5]); // zoom level
+			console.log("DATA values[6]=" + values[6]); // zoom option
 
 			// Convert sexagesimal to decimal
 			// 30 --> 0.5
@@ -52,7 +53,8 @@ websocket.onmessage = function(evt) {
 			lon = lon / 60.0;
 			lon = parseInt(values[3],10) + lon;
 			console.log("DATA lon=" + lon);
-			map.setView([lat, lon], 15);
+			zoom = parseInt(values[5],10);
+			map.setView([lat, lon], zoom);
 
 			const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 				maxZoom: 19,
@@ -64,20 +66,27 @@ websocket.onmessage = function(evt) {
 
 			// Enable fullscreen control
 			// https://github.com/Leaflet/Leaflet.fullscreen
-			if ((values[5] & 0x01) == 0x01) {
+			if ((values[6] & 0x01) == 0x01) {
 				map.addControl(new L.Control.Fullscreen());
 			}
 
 			// Disable zoom function
 			// https://stackoverflow.com/questions/16537326/leafletjs-how-to-remove-the-zoom-control
 			//map.removeControl(map.zoomControl);
-			if ((values[5] & 0x02) == 0x02) {
+			if ((values[6] & 0x02) == 0x02) {
 				map.zoomControl.remove();
 				map.scrollWheelZoom.disable();
 				map.doubleClickZoom.disable();
 				map.touchZoom.disable();
 				map.boxZoom.disable();
 			}
+
+			break;
+
+		case 'ZOOMLEVEL':
+			console.log("DATA values[1]=" + values[1]); // zoom level
+			zoom_level = parseInt(values[1],10);
+			map.setZoom(zoom_level);
 
 			break;
 
