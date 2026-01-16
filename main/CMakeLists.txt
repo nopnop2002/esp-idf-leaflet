@@ -4,8 +4,8 @@ if (CONFIG_MODE_DEMO)
     list(APPEND srcs "demo.c")
 elseif (CONFIG_MODE_GPS)
     list(APPEND srcs "uart.c")
-elseif (CONFIG_MODE_TRIP)
-    list(APPEND srcs "trip.c")
+elseif (CONFIG_MODE_MOVE)
+    list(APPEND srcs "move.c")
 endif()
 
 idf_component_register(SRCS "${srcs}"

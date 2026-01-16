@@ -46,7 +46,7 @@ menu "Application configuration"
             bool "Using GPS"
             help
                 Using GPS.
-        config MODE_TRIP
+        config MODE_MOVE
             bool "Moving through Central Park"
             help
                 Moving through Central Park

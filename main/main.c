@@ -158,8 +158,8 @@ void server_task(void* pvParameters);
 void demo_task(void* pvParameters);
 #elif CONFIG_MODE_GPS
 void uart_task(void* pvParameters);
-#elif CONFIG_MODE_TRIP
-void trip_task(void* pvParameters);
+#elif CONFIG_MODE_MOVE
+void move_task(void* pvParameters);
 #endif
 
 void app_main() {
@@ -208,8 +208,8 @@ void app_main() {
 #elif CONFIG_MODE_GPS
 	// Start uart task
 	xTaskCreate(&uart_task, "UART", 1024*3, NULL, 5, NULL);
-#elif CONFIG_MODE_TRIP
-	// Start trip task
-	xTaskCreate(&trip_task, "TRIP", 1024*3, NULL, 5, NULL);
+#elif CONFIG_MODE_MOVE
+	// Start move task
+	xTaskCreate(&move_task, "MOVE", 1024*3, NULL, 5, NULL);
 #endif
 }

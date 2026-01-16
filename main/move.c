@@ -22,7 +22,7 @@
 #include "esp_log.h"
 #include "cJSON.h"
 
-static const char *TAG = "trip";
+static const char *TAG = "move";
 
 #include "websocket_server.h"
 
@@ -31,36 +31,37 @@ extern EventGroupHandle_t xEventWebSocket;
 
 #define STEPS 20
 
-void trip_task(void* pvParameters)
+void move_task(void* pvParameters)
 {
-	ESP_LOGW(TAG, "Trip Mode");
+	ESP_LOGW(TAG, "Move Mode");
 	// This mode traverses Central Park.
-	// Starting position: 40.76631,-7397759
-	// 40.76631 -> 0.76631*60=45.9786
-	// -73.97759 -> -0.97759*60=-58.6554
+	// We can get the location on Google Maps.
+	// Starting Latitude: 40.76631
+	// Starting Longitude: -73.97759
 	nmea_position startLatitude;
 	nmea_position startLongitude;
 	startLatitude.degrees = 40;
-	startLatitude.minutes = 45.9786;
+	startLatitude.minutes = 0.76631*60.0;
 	startLongitude.degrees = -73;
-	startLongitude.minutes = -58.6554;
+	startLongitude.minutes = -0.97759*60.0;
 
-	// End position: 40.79869, -73,95356
-	nmea_position endLatitude;
-	nmea_position endLongitude;
-	endLatitude.degrees = 40;
-	endLatitude.minutes = 47.9214;
-	endLongitude.degrees = -73;
-	endLongitude.minutes = -57.2136;
+	// Final Latitude: 40.79869
+	// Final Longitude: -73.95356
+	nmea_position finalLatitude;
+	nmea_position finalLongitude;
+	finalLatitude.degrees = 40;
+	finalLatitude.minutes = 0.79869*60.0;
+	finalLongitude.degrees = -73;
+	finalLongitude.minutes = -0.95356*60.0;
 
 	float startLat = startLatitude.degrees + (startLatitude.minutes/100.0);
 	float startLong = startLongitude.degrees + (startLongitude.minutes/100.0);
-	float endLat = endLatitude.degrees + (endLatitude.minutes/100.0);
-	float endLong = endLongitude.degrees + (endLongitude.minutes/100.0);
-	ESP_LOGI(TAG, "startLat=%f endLat=%f", startLat, endLat);
-	ESP_LOGI(TAG, "startLong=%f endLong=%f", startLong, endLong);
-	float deltaLat = (endLat - startLat)/STEPS;
-	float deltaLong = (endLong - startLong)/STEPS;
+	float finalLat = finalLatitude.degrees + (finalLatitude.minutes/100.0);
+	float finalLong = finalLongitude.degrees + (finalLongitude.minutes/100.0);
+	ESP_LOGI(TAG, "startLat=%f finalLat=%f", startLat, finalLat);
+	ESP_LOGI(TAG, "startLong=%f finalLong=%f", startLong, finalLong);
+	float deltaLat = (finalLat - startLat)/STEPS;
+	float deltaLong = (finalLong - startLong)/STEPS;
 	ESP_LOGI(TAG, "deltaLong=%f deltalat=%f", deltaLong, deltaLat);
 
 	float currentLat = startLat;
