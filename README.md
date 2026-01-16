@@ -6,8 +6,8 @@ This project demonstrates how to use Leaflet maps with ESP-IDF.
 ![Image](https://github.com/user-attachments/assets/05fde83c-0934-4cdd-b3f4-540e88f93b89)   
 ![Image](https://github.com/user-attachments/assets/9765ed50-1162-4b8f-9644-b7ecbb3cb545)   
 
-This project use [this](https://components.espressif.com/components/igrr/libnmea) componnt as NMEA parser.   
-This project use [this](https://github.com/Molorius/esp32-websocket) componnt for WebSocket communication.   
+This project use [this](https://components.espressif.com/components/igrr/libnmea) component as NMEA parser.   
+This project use [this](https://github.com/Molorius/esp32-websocket) component for WebSocket communication.   
 Both are great components.   
 
 # Software requirements
