@@ -64,12 +64,6 @@ websocket.onmessage = function(evt) {
 			const marker = L.marker([lat, lon]).addTo(map)
 				.bindPopup('<b>Hello world!</b><br />You are here.').openPopup();
 
-			// Enable fullscreen control
-			// https://github.com/Leaflet/Leaflet.fullscreen
-			if ((values[6] & 0x01) == 0x01) {
-				map.addControl(new L.Control.Fullscreen());
-			}
-
 			// Disable zoom function
 			// https://stackoverflow.com/questions/16537326/leafletjs-how-to-remove-the-zoom-control
 			//map.removeControl(map.zoomControl);
@@ -84,9 +78,37 @@ websocket.onmessage = function(evt) {
 			break;
 
 		case 'ZOOMLEVEL':
-			console.log("DATA values[1]=" + values[1]); // zoom level
+			console.log("ZOOMLEVEL values[1]=" + values[1]); // zoom level
 			zoom_level = parseInt(values[1],10);
 			map.setZoom(zoom_level);
+
+			break;
+
+		case 'ZOOMCONTROL':
+			console.log("ZOOMCONTROL values[1]=" + values[1]); // zoom control
+			zoom_control = parseInt(values[1],10);
+			if (zoom_control == 0) {
+				map.zoomControl.remove();
+				map.scrollWheelZoom.disable();
+				map.doubleClickZoom.disable();
+				map.touchZoom.disable();
+				map.boxZoom.disable();
+			} else {
+				map.zoomControl.addTo(map);
+				map.scrollWheelZoom.enable();
+				map.doubleClickZoom.enable();
+				map.touchZoom.enable();
+				map.boxZoom.enable();
+			}
+
+			break;
+
+		case 'FULLSCREEN':
+			// Enable/Disable fullscreen control
+			// https://github.com/Leaflet/Leaflet.fullscreen
+			console.log("FULLSCREEN values[1]=" + values[1]);
+			fullscreeen = parseInt(values[1],10);
+			map.addControl(new L.Control.Fullscreen());
 
 			break;
 
