@@ -6,6 +6,8 @@ This project demonstrates how to use Leaflet maps with ESP-IDF.
 ![Image](https://github.com/user-attachments/assets/05fde83c-0934-4cdd-b3f4-540e88f93b89)   
 ![Image](https://github.com/user-attachments/assets/9765ed50-1162-4b8f-9644-b7ecbb3cb545)   
 
+This project use [this](https://components.espressif.com/components/igrr/libnmea) NMEA parser.   
+
 # Software requirements
 ESP-IDF V5.0 or later.   
 ESP-IDF V4.4 release branch reached EOL in July 2024.   
