@@ -206,7 +206,7 @@ static void read_and_parse_nmea()
 				cJSON_AddNumberToObject(request, "latitude_degrees", pos->latitude.degrees);
 				cJSON_AddNumberToObject(request, "latitude_minutes", pos->latitude.minutes);
 				cJSON_AddNumberToObject(request, "zoom_level", 15);
-				cJSON_AddNumberToObject(request, "options", 1); // Use Fullscreen Control
+				cJSON_AddNumberToObject(request, "options", 0);
 				char *nmea_string = cJSON_Print(request);
 				ESP_LOGD(TAG, "nmea_string\n%s",nmea_string);
 				size_t xBytesSent = xMessageBufferSendFromISR(xMessageBufferToClient, nmea_string, strlen(nmea_string), NULL);
@@ -215,6 +215,19 @@ static void read_and_parse_nmea()
 				}
 				cJSON_Delete(request);
 				cJSON_free(nmea_string);
+
+				// Send fullscreen to web client
+				request = cJSON_CreateObject();
+				cJSON_AddStringToObject(request, "id", "fullscreen-request");
+				cJSON_AddNumberToObject(request, "fullscreen", 1);
+				char *fullscreen_string = cJSON_Print(request);
+				ESP_LOGD(TAG, "fullscreen_string\n%s",fullscreen_string);
+				xBytesSent = xMessageBufferSendFromISR(xMessageBufferToClient, fullscreen_string, strlen(fullscreen_string), NULL);
+				if (xBytesSent != strlen(fullscreen_string)) {
+					ESP_LOGE(TAG, "xMessageBufferSend fail");
+				}
+				cJSON_Delete(request);
+				cJSON_free(fullscreen_string);
 
 				// Send message to web client
 				request = cJSON_CreateObject();

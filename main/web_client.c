@@ -141,6 +141,22 @@ void client_task(void* pvParameters) {
 				ws_server_send_text_all(outBuffer,strlen(outBuffer));
 			} // zoomlevel-request
 
+			if ( strcmp (id, "zoomcontrol-request") == 0) {
+				int zoomControl = cJSON_GetObjectItem(root,"zoom_control")->valueint;
+				ESP_LOGI(TAG, "zoomControl=%d", zoomControl);
+				sprintf(outBuffer,"ZOOMCONTROL%c%d", DEL, zoomControl);
+				ESP_LOGI(TAG, "outBuffer=[%s]", outBuffer);
+				ws_server_send_text_all(outBuffer,strlen(outBuffer));
+			} // zoomcontrol-request
+
+			if ( strcmp (id, "fullscreen-request") == 0) {
+				int fullscreen = cJSON_GetObjectItem(root,"fullscreen")->valueint;
+				ESP_LOGI(TAG, "fullscreen=%d", fullscreen);
+				sprintf(outBuffer,"FULLSCREEN%c%d", DEL, fullscreen);
+				ESP_LOGI(TAG, "outBuffer=[%s]", outBuffer);
+				ws_server_send_text_all(outBuffer,strlen(outBuffer));
+			} // fullscreen-request
+
 			if ( strcmp (id, "message-request") == 0) {
 				char *position = cJSON_GetObjectItem(root,"position")->valuestring;
 				int timeout = cJSON_GetObjectItem(root,"timeout")->valueint;
