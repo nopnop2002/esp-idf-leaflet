@@ -1,0 +1,17 @@
+# Location information from Paris Station to Marseille Station
+# Zoom level is only valid for the first row
+# Latitude, Longitude, MessageText, ZoomLevel
+48.84448,2.37439,Paris Grae de Lyon,6;
+#46.76555,4.4945,Le Creusot;
+#46.28304,4.77884,Macon-Luche;
+45.76076,4.58939,Lyon Part Dieu;
+#45.74866,4.82573,Lyon-Perrache;
+44.99202,4.97863,Valece;
+#44.92820,4.89322,Valence-Ville;
+#44.55919,4.74473,Gare de Montelimar;
+#44.13752,4.91954,Oranbe;
+#43.94208,4.80526,Avignion Centre;
+43.92285,4.78540,Avignion Gar-TGV;
+43.52305,5.44534,Aix-en-Provence-TGV;
+43.30321,5.38108,Marseill Saint-Charles;
+
