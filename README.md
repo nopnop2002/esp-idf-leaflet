@@ -41,7 +41,7 @@ idf.py flash
 ![Image](https://github.com/user-attachments/assets/9772a458-a42a-40c0-9173-38112975fef0)
 ![Image](https://github.com/user-attachments/assets/01717382-bf58-4a8f-a30a-e52faf29f615)
 
-This project has three modes of operation.   
+This project has four modes of operation.   
 - Demonstration Mode   
 	Works without GPS.   
 	Displays a map of the Statue of Liberty.   
