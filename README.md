@@ -90,4 +90,9 @@ In this mode, the zoom function is disabled.
 ![Image](https://github.com/user-attachments/assets/688a8fdf-fa8b-414e-87e7-bac5326b6ce2)
 ![Image](https://github.com/user-attachments/assets/6d329476-cdc4-4bc0-83c6-026ba7de27c4)
 ![Image](https://github.com/user-attachments/assets/0494e42f-506d-47fc-baca-128beb403c85)
-![Image](https://github.com/user-attachments/assets/772e1aef-f55a-44e3-91ca-b4e48bbd32ae)
+![Image](https://github.com/user-attachments/assets/e5acfa1b-064c-40cf-a6b0-a0fcd1144f68)
+
+You can display any map you like by editing setpoint.def.   
+![Image](https://github.com/user-attachments/assets/0f887117-ff75-4890-83f7-0aa33c8921a8)
+![Image](https://github.com/user-attachments/assets/e995b068-5e4a-41a2-9d96-ee88d64cae5d)
+![Image](https://github.com/user-attachments/assets/ee49fac2-c5e5-418b-b1a0-426360c0fcc1)
