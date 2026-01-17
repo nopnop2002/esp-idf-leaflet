@@ -36,6 +36,7 @@ typedef struct {
 	float latitude;
 	float longitude;
 	char text[64];
+	int zoomlevel;
 } SETPOINT_t;
 
 static void listSPIFFS(char * path) {
@@ -173,6 +174,8 @@ static int readDefineFile(char * path, SETPOINT_t *setpoint, size_t maxLine) {
 		setpoint[readLine].latitude = strtof(&result[0][0], NULL);
 		setpoint[readLine].longitude = strtof(&result[1][0], NULL);
 		strcpy(setpoint[readLine].text, &result[2][0]);
+		setpoint[readLine].zoomlevel = 0;
+		if (ret == 4) setpoint[readLine].zoomlevel = strtol(&result[3][0], NULL, 10);
 		readLine++;
 		if (readLine == maxLine) break;
 	}
@@ -203,17 +206,25 @@ void setpoint_task(void* pvParameters)
 	if (readLine == 0) {
 		while(1) { vTaskDelay(1); }
 	}
+
 	for(int i=0;i<readLine;i++) {
 		ESP_LOGI(pcTaskGetName(NULL), "setpoint[%d].latitude=[%f]",i, setpoint[i].latitude);
 		ESP_LOGI(pcTaskGetName(NULL), "setpoint[%d].longitude=[%f]",i, setpoint[i].longitude);
 		ESP_LOGI(pcTaskGetName(NULL), "setpoint[%d].text=[%s]",i, setpoint[i].text);
+		ESP_LOGI(pcTaskGetName(NULL), "setpoint[%d].zoomlevel=[%d]",i, setpoint[i].zoomlevel);
 	}
+
+	int maxZoomLevel = 8;
+	if (setpoint[0].zoomlevel != 0) maxZoomLevel = setpoint[0].zoomlevel;
+	ESP_LOGI(TAG, "maxZoomLevel=%d", maxZoomLevel);
 
 	nmea_position currentLatitude;
 	nmea_position currentLongitude;
 	int pointCounter = 0;
 	int zoomLevel = 0;
 	bool messagebox = false;
+	int options =0x02; // Disable zoom function
+
 	while(1) {
 		// Whether the browser has started or not
 		// If the browser is not started, do not send the message.
@@ -226,6 +237,7 @@ void setpoint_task(void* pvParameters)
 			pointCounter = 0;
 			zoomLevel = 0;
 			messagebox = false;
+			options = 0x02; // Disable zoom function
 		} else if (bits == 0x03) {
 			if (pointCounter >= readLine) {
 				vTaskDelay(100);
@@ -251,7 +263,7 @@ void setpoint_task(void* pvParameters)
 		cJSON_AddNumberToObject(request, "latitude_minutes", currentLatitude.minutes);
 		//cJSON_AddNumberToObject(request, "zoom_level", 8);
 		cJSON_AddNumberToObject(request, "zoom_level", zoomLevel);
-		cJSON_AddNumberToObject(request, "options", 0x02); // Disable zoom function
+		cJSON_AddNumberToObject(request, "options", options); // Disable zoom function
 		char *nmea_string = cJSON_Print(request);
 		ESP_LOGD(TAG, "nmea_string\n%s",nmea_string);
 		size_t xBytesSent = xMessageBufferSendFromISR(xMessageBufferToClient, nmea_string, strlen(nmea_string), NULL);
@@ -279,9 +291,12 @@ void setpoint_task(void* pvParameters)
 		}
 
 		// Set next map zoom size and localtion
-		if (zoomLevel < 8) {
+		if (zoomLevel < maxZoomLevel) {
 			zoomLevel++;
-			if (zoomLevel == 8) messagebox = true;
+			if (zoomLevel == maxZoomLevel) {
+				options = 0x03; // Set center of map & Disable zoom function
+				messagebox = true;
+			}
 			vTaskDelay(100);
 		} else {
 			pointCounter++;

@@ -115,7 +115,7 @@ void move_task(void* pvParameters)
 		cJSON_AddNumberToObject(request, "latitude_degrees", currentLatitude.degrees);
 		cJSON_AddNumberToObject(request, "latitude_minutes", currentLatitude.minutes);
 		cJSON_AddNumberToObject(request, "zoom_level", 15);
-		cJSON_AddNumberToObject(request, "options", 0x02); // Disable zoom function
+		cJSON_AddNumberToObject(request, "options", 0x03); // Set center of map & Disable zoom function
 		char *nmea_string = cJSON_Print(request);
 		ESP_LOGD(TAG, "nmea_string\n%s",nmea_string);
 		size_t xBytesSent = xMessageBufferSendFromISR(xMessageBufferToClient, nmea_string, strlen(nmea_string), NULL);
