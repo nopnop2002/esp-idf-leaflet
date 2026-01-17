@@ -61,11 +61,7 @@ This project has three modes of operation.
 	Works without GPS.   
 	Moving to a pre-determined location.   
 	The location is defined in ```setpoint.def``` in setpoint directory.   
-	In this project, you will travel by Shinkansen from Tokyo to Shin-Osaka.
-	![Image](https://github.com/user-attachments/assets/d8ab3f5f-8804-444a-a5c6-dfdb75011f8a)
-	![Image](https://github.com/user-attachments/assets/02fd778b-8c16-4aa8-80f8-97509119e5de)
-	![Image](https://github.com/user-attachments/assets/4bddba46-875a-48ea-b7ac-50bff03ee65d)
-	![Image](https://github.com/user-attachments/assets/5c39e043-4766-4c78-8ae1-c1ca196c3c96)
+	![Image](https://github.com/user-attachments/assets/a432d484-beb1-47e3-90ee-563b6e726fde)
 
 # How to use
 Open a web browser and enter the ESP32's IP address in the address bar.   
@@ -88,3 +84,9 @@ You can use the zoom function.
 In Move Mode, move through Central Park from south to north.   
 In this mode, the zoom function is disabled.   
 ![Image](https://github.com/user-attachments/assets/028d2dc8-6de5-46f3-b1b1-f6f5b3f8d910)   
+
+In Setpoint Mode, you will travel by Shinkansen from Tokyo to Shin-Osaka.
+![Image](https://github.com/user-attachments/assets/d8ab3f5f-8804-444a-a5c6-dfdb75011f8a)
+![Image](https://github.com/user-attachments/assets/02fd778b-8c16-4aa8-80f8-97509119e5de)
+![Image](https://github.com/user-attachments/assets/4bddba46-875a-48ea-b7ac-50bff03ee65d)
+![Image](https://github.com/user-attachments/assets/5c39e043-4766-4c78-8ae1-c1ca196c3c96)
