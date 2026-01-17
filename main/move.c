@@ -92,12 +92,12 @@ void move_task(void* pvParameters)
 			vTaskDelay(100);
 			continue;
 		} else if (bits == 0x01) {
-			currentLongitude.degrees = startLongitude.degrees;
-			currentLongitude.minutes = startLongitude.minutes;
 			currentLatitude.degrees = startLatitude.degrees;
 			currentLatitude.minutes = startLatitude.minutes;
-			currentLong = startLong;
+			currentLongitude.degrees = startLongitude.degrees;
+			currentLongitude.minutes = startLongitude.minutes;
 			currentLat = startLat;
+			currentLong = startLong;
 			counter = 0;
 		} else if (bits == 0x03) {
 			if (counter > STEPS) {
@@ -138,5 +138,7 @@ void move_task(void* pvParameters)
 		counter++;
 		vTaskDelay(200);
 	}
+
+	// Never reach here
 	vTaskDelete(NULL);
 }

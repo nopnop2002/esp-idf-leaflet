@@ -57,6 +57,16 @@ This project has three modes of operation.
 	Moving from south to north through Central Park.
 	![Image](https://github.com/user-attachments/assets/53544a9c-b3ef-40c3-bf3c-dbe65c3b1ac0)
 
+- Setpoint Mode   
+	Works without GPS.   
+	Moving to a pre-determined location.   
+	The location is defined in ```setpoint.def``` in setpoint directory.   
+	In this project, you will travel by Shinkansen from Tokyo to Shin-Osaka.
+	![Image](https://github.com/user-attachments/assets/d8ab3f5f-8804-444a-a5c6-dfdb75011f8a)
+	![Image](https://github.com/user-attachments/assets/02fd778b-8c16-4aa8-80f8-97509119e5de)
+	![Image](https://github.com/user-attachments/assets/4bddba46-875a-48ea-b7ac-50bff03ee65d)
+	![Image](https://github.com/user-attachments/assets/5c39e043-4766-4c78-8ae1-c1ca196c3c96)
+
 # How to use
 Open a web browser and enter the ESP32's IP address in the address bar.   
 In Demonstration Mode, it displays a map of the Statue of Liberty.   

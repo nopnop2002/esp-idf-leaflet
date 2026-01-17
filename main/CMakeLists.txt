@@ -6,6 +6,8 @@ elseif (CONFIG_MODE_GPS)
     list(APPEND srcs "uart.c")
 elseif (CONFIG_MODE_MOVE)
     list(APPEND srcs "move.c")
+elseif (CONFIG_MODE_SETPOINT)
+    list(APPEND srcs "setpoint.c")
 endif()
 
 idf_component_register(SRCS "${srcs}"

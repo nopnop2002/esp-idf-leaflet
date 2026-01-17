@@ -160,6 +160,8 @@ void demo_task(void* pvParameters);
 void uart_task(void* pvParameters);
 #elif CONFIG_MODE_MOVE
 void move_task(void* pvParameters);
+#elif CONFIG_MODE_SETPOINT
+void setpoint_task(void* pvParameters);
 #endif
 
 void app_main() {
@@ -211,6 +213,9 @@ void app_main() {
 #elif CONFIG_MODE_MOVE
 	// Start move task
 	xTaskCreate(&move_task, "MOVE", 1024*3, NULL, 5, NULL);
+#elif CONFIG_MODE_SETPOINT
+	// Start setpoint task
+	xTaskCreate(&setpoint_task, "POINT", 1024*4, NULL, 5, NULL);
 #endif
 
 	// An eternal loop to prevent stack variables from being released

@@ -124,5 +124,7 @@ void demo_task(void* pvParameters)
 		}
 		vTaskDelay(100);
 	}
+
+	// Never reach here
 	vTaskDelete(NULL);
 }
