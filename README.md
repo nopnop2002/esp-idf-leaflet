@@ -87,7 +87,7 @@ In this mode, the zoom function is disabled.
 
 In Setpoint Mode, you will travel by Shinkansen from Tokyo to Shin-Osaka.   
 In this mode, the zoom function is disabled.   
-![Image](https://github.com/user-attachments/assets/d8ab3f5f-8804-444a-a5c6-dfdb75011f8a)
-![Image](https://github.com/user-attachments/assets/02fd778b-8c16-4aa8-80f8-97509119e5de)
-![Image](https://github.com/user-attachments/assets/4bddba46-875a-48ea-b7ac-50bff03ee65d)
-![Image](https://github.com/user-attachments/assets/5c39e043-4766-4c78-8ae1-c1ca196c3c96)
+![Image](https://github.com/user-attachments/assets/688a8fdf-fa8b-414e-87e7-bac5326b6ce2)
+![Image](https://github.com/user-attachments/assets/6d329476-cdc4-4bc0-83c6-026ba7de27c4)
+![Image](https://github.com/user-attachments/assets/0494e42f-506d-47fc-baca-128beb403c85)
+![Image](https://github.com/user-attachments/assets/772e1aef-f55a-44e3-91ca-b4e48bbd32ae)
