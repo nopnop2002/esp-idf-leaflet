@@ -64,6 +64,11 @@ websocket.onmessage = function(evt) {
 			const marker = L.marker([lat, lon]).addTo(map)
 				.bindPopup('<b>Hello world!</b><br />You are here.').openPopup();
 
+			// Set center of map
+			if ((values[6] & 0x01) == 0x01) {
+				map.panTo(new L.LatLng(lat,lon));
+			}
+
 			// Disable zoom function
 			// https://stackoverflow.com/questions/16537326/leafletjs-how-to-remove-the-zoom-control
 			//map.removeControl(map.zoomControl);
