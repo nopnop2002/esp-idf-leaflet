@@ -168,6 +168,7 @@ static int readDefineFile(char * path, SETPOINT_t *setpoint, size_t maxLine) {
 		if (strlen(line) == 0) continue;
 		if (line[0] == '#') continue;
 
+		memset(result, 0, sizeof(result));
 		int ret = parseLine(line, 10, 32, result);
 		ESP_LOGI(TAG, "parseLine=%d", ret);
 		for(int i=0;i<ret;i++) ESP_LOGI(TAG, "result[%d]=[%s]", i, &result[i][0]);
@@ -274,7 +275,7 @@ void setpoint_task(void* pvParameters)
 		cJSON_free(nmea_string);
 
 		// Send message to web client
-		if (messagebox) {
+		if (messagebox && strlen(setpoint[pointCounter].text)) {
 			request = cJSON_CreateObject();
 			cJSON_AddStringToObject(request, "id", "message-request");
 			cJSON_AddStringToObject(request, "position", "bottomright");
