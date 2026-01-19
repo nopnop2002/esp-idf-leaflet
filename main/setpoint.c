@@ -156,7 +156,7 @@ static int readDefineFile(char * path, SETPOINT_t *setpoint, size_t maxLine) {
 		return 0;
 	}
 	char line[64];
-	char result[10][32];
+	char result[10][64];
 	while (1){
 		if ( fgets(line, sizeof(line) ,fp) == 0 ) break;
 		// strip newline
@@ -169,7 +169,7 @@ static int readDefineFile(char * path, SETPOINT_t *setpoint, size_t maxLine) {
 		if (line[0] == '#') continue;
 
 		memset(result, 0, sizeof(result));
-		int ret = parseLine(line, 10, 32, result);
+		int ret = parseLine(line, 10, 64, result);
 		ESP_LOGI(TAG, "parseLine=%d", ret);
 		for(int i=0;i<ret;i++) ESP_LOGI(TAG, "result[%d]=[%s]", i, &result[i][0]);
 		setpoint[readLine].latitude = strtof(&result[0][0], NULL);
